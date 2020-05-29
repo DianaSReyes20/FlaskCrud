@@ -1,0 +1,198 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="row">
+ <!-- INICIAL -->
+    <div class="form-group card card-body col-md-3 ml-5">
+        <div class="col-12">
+            <label>Seleccione un tipo de usuario</label>
+            <select class="form-control" id="status" name="status" onChange="mostrar(this.value);">
+                <option value="pastelero">Pastelero</option>
+                <option value="empresa">Empresa</option>
+                <option value="persona_externa">Persona Externa</option>
+                <option value="decorador">Decorador</option>
+            </select>
+        </div>
+        <span  class="text-danger"></span>
+    </div>
+</div>
+</br>
+
+
+    <!-- message -->
+    {% with messages = get_flashed_messages()  %}
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+    <div class="card card-body " id="pastelero" style="display:none">
+        <form action="{{url_for('add_pastelero')}}" method="POST">
+        <div class="row">
+            <div class="col-5 col-form-label">
+                <label>Codigo de Pastelero</label>
+            </div>
+
+            <div class="col-6 form-group">
+                <input type="text" class="form-control" name="codigo" placeholder="Codigo de pastelero"/>
+            </div>
+
+            <div class="col-5 col-form-label">
+                <label>Nombre de Pastelero</label>
+            </div>
+            <div class="col-6 form-group">
+                <input type="text" class="form-control" name="nombrep" placeholder="Nombre de pastelero"/>
+            </div>
+
+            <div class="col-5 col-form-label">
+                <label>Salario</label>
+            </div>
+            <div class="col-6 form-group">
+                <input type="text" class="form-control" name="salario" placeholder="Salario de pastelero"/>
+            </div>
+
+            <div class="col-5 col-form-label">
+                <label>Numero de pasaporte</label>
+            </div>
+            <div class="col-6 form-group">
+                <input type="text" class="form-control" name="numero_pasaporte" placeholder="Numero de pasaporte"/>
+            </div>
+
+            <div class="col-5 col-form-label">
+                <label>Pais de origen</label>
+            </div>
+            <div class="col-6 form-group">
+                <input type="text" class="form-control" name="pais_origen" placeholder="Pais de origen"/>
+            </div>
+
+            <div class="col-5 col-form-label">
+                <label>Experiencia</label>
+            </div>
+            <div class="col-6 form-group">
+                <input type="text" class="form-control" name="experiencia" placeholder="Experiencia"/>
+            </div>
+
+            <div class="col-5 col-form-label">
+                <label>Id Recomendacion</label>
+            </div>
+            <div class="col-6 form-group">
+                <input type="text" class="form-control" name="recomendacion" placeholder="Recomendacion"/>
+            </div>
+
+            <button class="btn btn-primary btn-block">
+            Registrar pastelero
+            </button>
+
+            <span class="text-danger"></span>
+
+        </div>
+        </form>
+    </div>
+
+<div class="card card-body " id="decorador" style="display:none">
+        <form action="{{url_for('add_decorador')}}" method="post">
+        <div class="row">
+            <div class="col-5 col-form-label">
+                <label>Codigo de Decorador </label>
+            </div>
+            <div class="col-6 form-group">
+                 <input type="text" class="form-control" name="codigo_decorador" placeholder="Codigo del decorador"/>
+            </div>
+
+            <div class="col-5 col-form-label">
+                <label>Nombre de Decorador </label>
+            </div>
+            <div class="col-6 form-group">
+                 <input type="text" class="form-control" name="nombre_decorador" placeholder="Nombre del decorador"/>
+            </div>
+
+            <div class="col-5 col-form-label">
+                <label>Salario</label>
+            </div>
+            <div class="col-6 form-group">
+                 <input type="text" class="form-control" name="salario" placeholder="Salario del decorador"/>
+            </div>
+
+            <button class="btn btn-primary btn-block">
+            Registrar decorador
+            </button>
+        </div>
+        </form>
+    </div>
+
+    <!-- menu elegible -->
+
+    <div class="card card-body" id="empresa" style="display: none">
+        <form action="{{url_for('add_empresa')}}" method="post">
+        <div class="row">
+            <div class="col-5 col-form-label">
+                <label>Nombre de empresa</label>
+            </div>
+            <div class="col-6 form-group">
+                <input type="text" class="form-control" name="nombre_empresa" placeholder="Nombre de empresa"/>
+            </div>
+
+            <div class="col-5 col-form-label">
+                <label>NIT</label>
+            </div>
+            <div class="col-6 form-group">
+                <input type="text" class="form-control" name="nit" placeholder="Digite su nit"/>
+            </div>
+
+            <div class="col-5 col-form-label">
+                <label>Direccion</label>
+            </div>
+            <div class="col-6 form-group">
+                <input type="text" class="form-control" name="direccion_empresa" placeholder="Direccion"/>
+            </div>
+
+
+            <button class="btn btn-primary btn-block">
+            Registrar empresa
+            </button>
+
+        </div>
+        </form>
+    </div>
+
+     <div id="persona_externa" class="card card-body" style="display: none">
+        <form action="{{url_for('add_persona_externa')}}" method="post">
+        <div class="row">
+            <div class="col-5 col-form-label">
+                <label>Cedula</label>
+            </div>
+            <div class="col-6 form-group">
+                <input type="text" class="form-control" name="cedula" placeholder="cedula"/>
+            </div>
+
+            <div class="col-5 col-form-label">
+                <label>Nombre</label>
+            </div>
+            <div class="col-6 form-group">
+                <input type="text" class="form-control" name="nombre" placeholder="nombre"/>
+            </div>
+
+            <div class="col-5 col-form-label">
+                <label>Direccion</label>
+            </div>
+            <div class="col-6 form-group">
+                <input type="text" class="form-control" name="direccion_persona_externa" placeholder="Direccion"/>
+            </div>
+
+            <button class="btn btn-primary btn-block">
+            Registrar persona externa
+            </button>
+
+        </div>
+        </form>
+    </div>
+
+{% endblock %}
+
+<script src="{{url_for('static', filename='js/registro.js')}}"></script>

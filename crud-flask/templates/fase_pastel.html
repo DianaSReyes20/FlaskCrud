@@ -1,0 +1,136 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="row">
+ <!-- INICIAL -->
+    <div class="form-group card card-body col-md-3 ml-5">
+        <div class="col-12">
+            <label>Seleccione un tipo de fase</label>
+            <select class="form-control" id="status" name="status" onChange="mostrar(this.value);">
+                <option value="horneado">Horneado</option>
+                <option value="decorado">Decorado</option>
+            </select>
+        </div>
+        <span  class="text-danger"></span>
+    </div>
+</div>
+</br>
+
+
+    <!-- message -->
+    {% with messages = get_flashed_messages()  %}
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+    <div class="card card-body " id="horneado" style="display:none">
+        <form action="{{url_for('add_horneado')}}" method="POST">
+        <div class="row">
+            <div class="col-5 col-form-label">
+                <label>Id Horneado</label>
+            </div>
+
+            <div class="col-6 form-group">
+                <input type="text" class="form-control" name="id_horneado" placeholder="Id Horneado"/>
+            </div>
+
+            <div class="col-5 col-form-label">
+                <label>Temperatura de Cocción</label>
+            </div>
+            <div class="col-6 form-group">
+                <input type="text" class="form-control" name="temperatura" placeholder="Temperatura cocción"/>
+            </div>
+
+            <div class="col-5 col-form-label">
+                <label>Fecha de Inicio</label>
+            </div>
+            <div class="col-6 form-group">
+                <input type="date" name="fecha_inicio">
+            </div>
+
+            <div class="col-5 col-form-label">
+                <label>Fecha de Fin</label>
+            </div>
+            <div class="col-6 form-group">
+                <input type="date" name="fecha_fin">
+            </div>
+
+            <div class="col-5 col-form-label">
+                <label>Nombre Pastel</label>
+            </div>
+            <div class="col-6 form-group">
+                <input type="text" class="form-control" name="nombre_pastel" placeholder="Nombre pastel"/>
+            </div>
+
+            <button class="btn btn-primary btn-block">
+            Registrar Fase horneado
+            </button>
+
+            <span class="text-danger"></span>
+
+        </div>
+        </form>
+    </div>
+
+
+
+
+    <!-- menu elegible -->
+    <div class="card card-body " id="decorado" style="display:none">
+        <form action="{{url_for('add_decorado')}}" method="POST">
+            <div class="form-group row">
+                <div class="col-5 col-form-label">
+                    <label>Id Decorado</label>
+                </div>
+                <div class="col-6 form-group">
+                    <input type="text" class="form-control" name="id_decorado" placeholder="Id Decorado"/>
+                </div>
+
+                <div class="col-5 col-form-label">
+                    <label>Fecha de Inicio</label>
+                </div>
+                <div class="col-6 form-group">
+                    <input type="date" name="fecha_inicio">
+                </div>
+
+                <div class="col-5 col-form-label">
+                    <label>Fecha de Fin</label>
+                </div>
+                <div class="col-6 form-group">
+                    <input type="date" name="fecha_fin">
+                </div>
+
+                <div class="col-5 col-form-label">
+                    <label>Peso final</label>
+                </div>
+                <div class="col-6 form-group">
+                    <input type="text" class="form-control" name="peso_final" placeholder="Peso final"/>
+                 </div>
+
+                <div class="col-5 col-form-label">
+                    <label>Nombre Pastel</label>
+                </div>
+                <div class="col-6 form-group">
+                    <input type="text" class="form-control" name="nombre_pastel" placeholder="Nombre pastel"/>
+                </div>
+
+            <button class="btn btn-primary btn-block">
+                Registrar Fase decorado
+            </button>
+
+            <span class="text-danger"></span>
+
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
+
+<script src="{{url_for('static', filename='js/fases.js')}}"></script>

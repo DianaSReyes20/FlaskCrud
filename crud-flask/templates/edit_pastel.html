@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block body %}
+
+  <div class="row">
+    <div class="col-md-4 offset-md-4">
+      <div class="card card-body">
+        <form action="/update/{{contact.0}}" method="POST">
+            <div class="form-group">
+                <select class="form-control" name="tipo_pastel" value="{{contact.1}}">
+                    <option>Divorcio</option>
+                    <option>Matrimonio</option>
+                    <option>15 años</option>
+                    <option>Cumpleaños</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="peso_minimo" value="{{contact.2}}" placeholder="Peso Minimo">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">
+                Update
+                </button>
+            </div>
+            </form>
+        </div>
+    </div>
+  </div>
+
+{% endblock %}

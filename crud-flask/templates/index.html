@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+{% block body %}
+
+  <div class="row">
+    <div class="col-md-5">
+      {% with messages = get_flashed_messages()  %}
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+
+      <div class="card card-body">
+        <form action="{{url_for('add_orden')}}" method="POST">
+          <div class="form-group">
+              <input type="text" class="form-control" name="codigo_orden" placeholder="Codigo de la Orden">
+           </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="cedula" placeholder="Cedula o Nit">
+            </div>
+           <div class="col-6 form-group">
+               <input type="date" name="fecha_solicitud">
+            </div>
+           <div class="col-6 form-group">
+               <input type="date" name="fecha_entrega">
+           </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="nombre_pastel" placeholder="Nombre pastel">
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" name="codigo" placeholder="Empleado a realizar orden">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="nombre" placeholder="Nombre del Ingrediente">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="especificaciones" placeholder="Especificaciones...">
+            </div>
+            <button class="btn btn-primary btn-block">
+                Realizar Orden
+            </button>
+        </form>
+      </div>
+    </div>
+
+      <!-- tabla muestr -->
+    <div class="col-md-7">
+      <table class="table table-striped table-hover table-bordered table-sm bg-white">
+        <thead>
+          <tr>
+            <td>Codigo de la Orden</td>
+            <td>Fecha solicitud</td>
+            <td>Fecha entrega</td>
+              <td>Especificaciones</td>
+              <td>Nombre Pastel</td>
+              <td>Cedula cliente</td>
+              <td>Id pastelero</td>
+              <td>Nombre Ingrediente</td>
+          </tr>
+        </thead>
+        <tbody>
+          {% for orden in orden_s %}
+          <tr>
+            <td>{{orden.0}}</td>
+            <td>{{orden.1}}</td>
+            <td>{{orden.2}}</td>
+              <td>{{orden.3}}</td>
+              <td>{{orden.4}}</td>
+              <td>{{orden.5}}</td>
+              <td>{{orden.6}}</td>
+              <td>{{orden.7}}</td>
+            <td>
+              <a href="/edit/{{orden.0}}" class="btn btn-secondary">edit</a>
+              <a href="/delete/{{orden.0}}" class="btn btn-danger btn-delete">delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+</div>
+
+{% endblock %}
